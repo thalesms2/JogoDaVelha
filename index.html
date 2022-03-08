@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="score">
+        <button>Reset Score</button>
+        <span>0 VS 0</span>
+        <button onclick="reset()">New game</button>
+    </section>
+    <section class="game">
+        <div class="wrapper">
+            <div data-key="00"></div>
+            <div data-key="10"></div>
+            <div data-key="20"></div>
+        </div>
+        <div class="wrapper">
+            <div data-key="01"></div>
+            <div data-key="11"></div>
+            <div data-key="21"></div>
+        </div>
+        <div class="wrapper">
+            <div data-key="02"></div>
+            <div data-key="12"></div>
+            <div data-key="22"></div>
+        </div>
+    </section>
+    <script type="text/javascript" src="script.js" ></script>
+</body>
+</html>

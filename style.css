@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    vertical-align:baseline;
+    list-style:none;
+    border:0
+}
+
+body {
+    background-color: #cdcdcd;
+}
+
+section {
+    display: flex;
+    width: 100vw;
+}
+
+.score {
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.score span {
+    width: 200px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.game {
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper div {
+    width: 100px;
+    height: 100px;
+    font-size: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+}
+
+.wrapper div:nth-child(1),
+.wrapper div:nth-child(2) {
+    border-bottom: 3px solid black;
+}
+
+div[data-key="00"],
+div[data-key="10"],
+div[data-key="20"],
+div[data-key="01"],
+div[data-key="11"],
+div[data-key="21"] {
+    border-right: 3px solid black;
+}
+
+.cruz {
+    background-color: blue;
+}
+
+.circulo {
+    background-color: green;
+}
+
+button {
+    background-color: #808080;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+}

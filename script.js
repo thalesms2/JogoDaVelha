@@ -1,90 +1,90 @@
-let turn = 0
+let turn = 0;
 let desk = [
     [0, 0, 0],
     [0, 0, 0],
-    [0, 0, 0]
-]
-let win = 0
-let x = 0
-let o = 0
+    [0, 0, 0]];
 
-const reset = () => {
+const update = () => {
     for(var j = 0; j < 3; j++) {
         for(var i = 0; i < 3; i++){
-            desk[j][i] = 0
-            const spot = document.querySelector(`div[data-key="${j}${i}"]`)
-            spot.innerHTML = ""
+            const spot = document.querySelector(`div[data-key="${j}${i}"]`);
+            switch(desk[j][i]) {
+                case 0:
+                    spot.innerHTML = '';
+                    break;
+                case 1: 
+                    spot.innerHTML = 'O';
+                    break;
+                case 4: 
+                    spot.innerHTML = 'X';
+                    break;
+
+            }
         }
     }
-}
-
-const resetScore = () => {
-    x = 0
-    o = 0
 }
 
 const check = (sum) => {
-    switch(sum) {
-        case 3:
-            o++
-            reset()
-            break
-        case 12:
-            x++
-            reset()
-            break
-    }
+    var result;
+    sum.forEach((x) => {
+        switch(x) {
+            case 3:
+                result = 1;
+            case 12:
+                result = 2;
+        }
+    })
+    return result;
+}
+
+const reset = () => {
+    desk = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+    update();
 }
 
 const checkWin = () => {
-    let sum3 = 0
-    let sum4 = 0
-    let cont = 2
+    let sum = [0, 0, 0, 0];
+    let contDec = 2;
     for(var j = 0; j < 3; j++) {
-        let sum1 = 0
-        let sum2 = 0
-        sum3 += desk[j][j]
-        sum4 += desk[cont][j]
-        cont--
+        sum[0] += desk[j][j];
+        sum[1] += desk[contDec][j];
+        contDec--;
         for(var i = 0; i < 3; i++){
-            sum1 += desk[i][j]
-            sum2 += desk[j][i]
+            sum[2] += desk[i][j];
+            sum[3] += desk[j][i];
         }
-        check(sum1)
-        check(sum2)
-        console.log(sum3, sum4)
-        check(sum3)
-        check(sum4)
+    }
+    console.log(check(sum))
+    return check(sum);
+}
+
+const makeMove = (event) => {
+    var player = turn % 2;
+    var [x, y] = event.target.dataset.key.split("");
+    if(!desk[x][y] ) {
+        player ?  desk[x][y] = 1 : desk[x][y] = 4;
+        turn++;
     }
 }
 
+// Main Exec
 const play = (event) => {
-    if(turn % 2) {
-        // O
-        let localClick = event.target.dataset.key.split("")
-        if(!desk[localClick[0]][localClick[1]]) {
-            desk[localClick[0]][localClick[1]] = 1
-            const spot = document.querySelector(`div[data-key="${localClick[0]}${localClick[1]}"]`)
-            spot.innerHTML = "O"
-            turn++
-        }
-        console.log("O")
-    } else {
-        // X
-        let localClick = event.target.dataset.key.split("")
-        if(!desk[localClick[0]][localClick[1]]) {
-            desk[localClick[0]][localClick[1]] = 4
-            const spot = document.querySelector(`div[data-key="${localClick[0]}${localClick[1]}"]`)
-            spot.innerHTML = "X"
-            turn++
-        }
-        console.log("X")
+    checkWin() ? reset() : makeMove(event);
+    update();
+    switch(checkWin()) {
+        case 1:
+            document.querySelector('#msg').innerHTML = "'O' Win";
+            break;
+        case 2:
+            document.querySelector('#msg').innerHTML = "'X' Win";
+            break;
     }
-    checkWin()
 }
 
-const slots = document.querySelectorAll("div")
-
-document.querySelectorAll("div").forEach((div) => {
-    div.addEventListener("click", play)
+const slots = document.querySelectorAll("div");
+slots.forEach((div) => {
+    div.addEventListener("click", play);
 })

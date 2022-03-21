@@ -36,34 +36,8 @@ body {
         font-family: 'Roboto', sans-serif;
     }
 }
-
-.game {
+section:nth-child(2) {
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    display: flex;
-    .wrapper {
-        div {
-        width: 100px;
-        height: 100px;
-        font-size: 6rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 900;
-        }  
-        div:nth-child(1),
-        div:nth-child(2) {
-            border-bottom: 3px solid black;
-        } 
-        div[data-key="00"],
-        div[data-key="10"],
-        div[data-key="20"],
-        div[data-key="01"],
-        div[data-key="11"],
-        div[data-key="21"] {
-            border-right: 3px solid black;
-        }
-    }
 }

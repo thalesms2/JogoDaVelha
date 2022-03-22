@@ -3,9 +3,9 @@ export const size = {
     height: 600,
 }
 export const EMPTY = 'empty'
-export const PLAYERX = 'X'
-export const PLAYERY = 'Y'
-export const table = [
+export const X = 'X'
+export const O = 'O'
+export const BOARD = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY],

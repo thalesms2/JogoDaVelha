@@ -1,4 +1,5 @@
-import { size } from './constants.js'
+import { size, X, O, BOARD, EMPTY} from './constants.js'
+import { generateGameBoard } from './utils.js'
 
 class Game {
     constructor() {
@@ -6,9 +7,11 @@ class Game {
         this.canvas.width = size.width
         this.canvas.height = size.height
         this.context = this.canvas.getContext('2d')
-        this.generateDesk(this.context)
+        this.drawDesk(this.context)
+        this.board = generateGameBoard(BOARD)
     }
-    generateDesk(context) {
+    
+    drawDesk(context) {
         this.context.beginPath()
         this.context.fillStyle = '#dcdcdc'
         this.context.strokeStyle = '#fff'
@@ -50,7 +53,12 @@ class Game {
         this.context.closePath()
     }
     addX(x, y) {
-        
+        if(this.board[x][y] === 'empty') {
+            this.board[x][y] = X
+        }
+        this.drawX(x, y)
+        console.log(`X: ${x} | Y: ${y}`)
+        console.log(this.board)
     }
 }
 export default Game

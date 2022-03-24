@@ -10,26 +10,15 @@
 <body>
     <section class="score">
         <button>Reset Score</button>
-        <span>0 VS 0</span>
-        <button onclick="reset()">New game</button>
+        <span id="msg">0 VS 0</span>
+        <button id="newGame">New game</button>
     </section>
-    <section class="game">
-        <div class="wrapper">
-            <div data-key="00"></div>
-            <div data-key="10"></div>
-            <div data-key="20"></div>
-        </div>
-        <div class="wrapper">
-            <div data-key="01"></div>
-            <div data-key="11"></div>
-            <div data-key="21"></div>
-        </div>
-        <div class="wrapper">
-            <div data-key="02"></div>
-            <div data-key="12"></div>
-            <div data-key="22"></div>
-        </div>
+    <section>
+        <canvas></canvas>
     </section>
-    <script type="text/javascript" src="script.js" ></script>
+    <script type="module" src="constants.js" ></script>
+    <script type="module" src="Game.js" ></script>
+    <script type="module" src="utils.js" ></script>
+    <script type="module" src="script.js" ></script>
 </body>
 </html>

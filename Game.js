@@ -55,10 +55,23 @@ class Game {
     addX(x, y) {
         if(this.board[x][y] === 'empty') {
             this.board[x][y] = X
+            this.drawX(x, y)
+            console.log(`X: ${x} | Y: ${y}`)
+            console.log(this.board)
         }
-        this.drawX(x, y)
-        console.log(`X: ${x} | Y: ${y}`)
+    }
+    addO(x, y) {
+        if(this.board[x][y] === 'empty') {
+            this.board[x][y] = O
+            this.drawO(x, y)
+            console.log(`X: ${x} | Y: ${y}`)
+            console.log(this.board)
+        }
+    }
+    reset() {
+        this.board = generateGameBoard(BOARD)
         console.log(this.board)
+        this.drawDesk(this.context)
     }
 }
 export default Game

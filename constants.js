@@ -10,3 +10,4 @@ export const BOARD = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY],
 ]
+export const TURNS = []

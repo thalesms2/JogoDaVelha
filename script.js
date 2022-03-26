@@ -3,8 +3,12 @@ import { TURNS } from './constants.js'
 
 const game = new Game
 document.querySelector('#newGame').addEventListener('click', () => { game.reset() })
+document.querySelector('#resetScore').addEventListener('click', () => { game.resetScore() })
 
 game.canvas.addEventListener('click', (event) => {
+    if(TURNS.length > 8) {
+        game.end = true
+    }
     if(event.offsetX <= 200) {
         if(event.offsetY <= 200) {
             (TURNS.length % 2) ? game.addX(0, 0) : game.addO(0, 0)

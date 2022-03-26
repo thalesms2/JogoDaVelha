@@ -11,3 +11,4 @@ export const BOARD = [
     [EMPTY, EMPTY, EMPTY],
 ]
 export const TURNS = []
+export const SCORE = [0, 0]

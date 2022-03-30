@@ -14,6 +14,10 @@
 
 > Jogo da velha que armazena os pontos dos players.
 
+## 🚀 Acesse o projeto em:
+
+https://thalesms2.github.io/JogoDaVelha
+
 ### Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:

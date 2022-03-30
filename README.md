@@ -1,5 +1,4 @@
 # Jogo da Velha
-<center>
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/thalesms2/JogoDaVelha?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/thalesms2/JogoDaVelha?style=for-the-badge)
@@ -10,8 +9,6 @@
 ![HTML](https://img.shields.io/badge/-HTML-blue?style=for-the-badge)
 ![SASS](https://img.shields.io/badge/-SASS-blue?style=for-the-badge)
 ![JS](https://img.shields.io/badge/-JS-blue?style=for-the-badge)
-
-</center>
 
 <img src="assets/readme-img.png" alt="exemplo imagem">
 

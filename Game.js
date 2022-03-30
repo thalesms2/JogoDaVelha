@@ -129,6 +129,7 @@ class Game {
         }
         return result
     }
+
     checkIFOWin(check) {
         let result = []
         for(var i = 0; i < 3; i++) {
@@ -216,4 +217,5 @@ class Game {
         }
     }
 }
+
 export default Game

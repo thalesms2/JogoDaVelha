@@ -1,15 +1,18 @@
 import { size, X, O, BOARD, TURNS , SCORE} from './constants.js'
-import { generateGameBoard } from './utils.js'
 
-class Game {
+export default class Game {
     constructor() {
         this.canvas = document.querySelector('canvas')
         this.canvas.width = size.width
         this.canvas.height = size.height
         this.context = this.canvas.getContext('2d')
         this.drawDesk()
-        this.board = generateGameBoard(BOARD)
+        this.board = this.generateGameBoard(BOARD)
         this.end = false
+    }
+
+    generateGameBoard (BOARD) {
+        return JSON.parse(JSON.stringify(BOARD)) // clone hack
     }
     
     drawDesk() {
@@ -81,14 +84,16 @@ class Game {
         }
     }
 
+    
+
     reset() {
-        this.board = generateGameBoard(BOARD)
+        this.board = this.generateGameBoard(BOARD)
         this.drawDesk(this.context)
         TURNS.splice(0, TURNS.length)
     }
     
     updateScore() {
-        document.querySelector('#msg').innerHTML = `X|${SCORE[0]} - ${SCORE[1]}|O`
+        document.querySelector('#score').innerHTML = `X|${SCORE[0]} - ${SCORE[1]}|O`
     }
     
     registerScore(id) {
@@ -217,5 +222,3 @@ class Game {
         }
     }
 }
-
-export default Game

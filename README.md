@@ -12,7 +12,7 @@
 
 > Jogo da velha feito em JavaScript.
 
-Jogo desenvolvido usando JavaScript e o recurso Canvas do HTML, simples mas útil para reforçar alguns dos conhecimentos básicos, como manipulação da DOM, POO e uso de pré-processadores CSS.
+Jogo desenvolvido usando JavaScript e o recurso Canvas do HTML, simples mas útil para reforçar alguns dos conhecimentos básicos, como manipulação da DOM e uso de pré-processadores CSS.
 
 ## 🚀 Acesse o projeto em:
 

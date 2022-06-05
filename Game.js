@@ -1,114 +1,107 @@
-import { size, X, O, BOARD, TURNS , SCORE} from './constants.js'
+import constants from './constants.js'
 
-export default class Game {
-    constructor() {
-        this.canvas = document.querySelector('canvas')
-        this.canvas.width = size.width
-        this.canvas.height = size.height
-        this.context = this.canvas.getContext('2d')
-        this.drawDesk()
-        this.board = this.generateGameBoard(BOARD)
-        this.end = false
+export default function game() {
+    const {
+        size,
+        X,
+        O,
+        BOARD,
+        TURNS,
+        SCORE,
+        canvas,
+        context,
+        end
+    } = constants()
+
+    const board = generateGameBoard(BOARD)
+    canvas.width = size.width
+    canvas.height = size.height
+    drawBoard(context)
+    function drawBoard() {
+        context.beginPath()
+        context.fillStyle = '#dcdcdc'
+        context.strokeStyle = '#fff'
+        context.fillRect(0, 0, size.width, size.height)
+        context.closePath()
+        drawBoardLines(context)
     }
-
-    generateGameBoard (BOARD) {
+    function drawBoardLines() {
+        context.beginPath()
+        context.lineWidth = 4
+        context.moveTo(198, 0)
+        context.lineTo(200, 600)
+        context.moveTo(398, 0)
+        context.lineTo(400, 600)
+    
+        context.moveTo(0, 198)
+        context.lineTo(600, 200)
+        context.moveTo(0, 398)
+        context.lineTo(600, 400)
+        context.stroke()
+        context.closePath()
+    }
+    function generateGameBoard (BOARD) {
         return JSON.parse(JSON.stringify(BOARD)) // clone hack
     }
-    
-    drawDesk() {
-        this.context.beginPath()
-        this.context.fillStyle = '#dcdcdc'
-        this.context.strokeStyle = '#fff'
-        this.context.fillRect(0, 0, size.width, size.height)
-        this.context.closePath()
-        this.drawLines(this.context)
+    function playX(coordX, coordY) {
+        context.beginPath()
+        context.lineWidth = 15
+        context.strokeStyle = '#000078'
+        context.moveTo(50 + (coordX * 200), 50 + (coordY * 200))
+        context.lineTo(150 + (coordX * 200), 150 + (coordY * 200))
+        context.moveTo(150 + (coordX * 200), 50 + (coordY * 200))
+        context.lineTo(50 + (coordX * 200), 150 + (coordY * 200))
+        context.stroke()
+        context.closePath()
     }
-    
-    drawLines() {
-        this.context.beginPath()
-        this.context.lineWidth = 4
-        this.context.moveTo(198, 0)
-        this.context.lineTo(200, 600)
-        this.context.moveTo(398, 0)
-        this.context.lineTo(400, 600)
-    
-        this.context.moveTo(0, 198)
-        this.context.lineTo(600, 200)
-        this.context.moveTo(0, 398)
-        this.context.lineTo(600, 400)
-        this.context.stroke()
-        this.context.closePath()
+    function playO(coordX, coordY) {
+        context.beginPath()
+        context.lineWidth = 15
+        context.strokeStyle = '#000078'
+        context.moveTo(150 + (coordX * 200), 100 + (coordY * 200))
+        context.arc(100 + (coordX * 200), 100 + (coordY * 200), 50, 0, 2 * Math.PI)
+        context.stroke()
+        context.closePath()
     }
-    
-    drawX(x, y) {
-        this.context.beginPath()
-        this.context.lineWidth = 15
-        this.context.strokeStyle = '#000078'
-        this.context.moveTo(50 + (x * 200), 50 + (y * 200))
-        this.context.lineTo(150 + (x * 200), 150 + (y * 200))
-        this.context.moveTo(150 + (x * 200), 50 + (y * 200))
-        this.context.lineTo(50 + (x * 200), 150 + (y * 200))
-        this.context.stroke()
-        this.context.closePath()
-    }
-
-    drawO(x, y) {
-        this.context.beginPath()
-        this.context.lineWidth = 15
-        this.context.strokeStyle = '#000078'
-        this.context.moveTo(150 + (x * 200), 100 + (y * 200))
-        this.context.arc(100 + (x * 200), 100 + (y * 200), 50, 0, 2 * Math.PI)
-        this.context.stroke()
-        this.context.closePath()
-    }
-
-    addX(x, y) {
-        if(this.board[x][y] === 'empty' && this.end === false) {
-            this.board[x][y] = X
-            this.drawX(x, y)
-            TURNS.push({ X: x, Y: y })
-        } else if (this.end) {
-            this.end = false
-            this.reset()
+    function addXonBoard(coordX, coordY) {
+        if(board[coordX][coordY] === 'empty' && end === false) {
+            board[coordX][coordY] = X
+            playX(coordX, coordY)
+            TURNS.push({ X: coordX, Y: coordY })
+        } else if (end) {
+            end = false
+            reset()
         }
     }
-
-    addO(x, y) {
-        if(this.board[x][y] === 'empty' && this.end === false) {
-            this.board[x][y] = O
-            this.drawO(x, y)
-            TURNS.push({ X: x, Y: y })
-        } else if (this.end) {
-            this.end = false
-            this.reset()
+    function addOonBoard(coordX, coordY) {
+        if(board[coordX][coordY] === 'empty' && end === false) {
+            board[coordX][coordY] = O
+            playO(coordX, coordY)
+            TURNS.push({ X: coordX, Y: coordY })
+        } else if (end) {
+            end = false
+            reset()
         }
     }
-
-    
-
-    reset() {
-        this.board = this.generateGameBoard(BOARD)
-        this.drawDesk(this.context)
+    function reset() {
+        board = generateGameBoard(BOARD)
+        drawDesk(context)
         TURNS.splice(0, TURNS.length)
     }
-    
-    updateScore() {
+    function updateScore() {
         document.querySelector('#score').innerHTML = `X|${SCORE[0]} - ${SCORE[1]}|O`
     }
-    
-    registerScore(id) {
+    function registerScore(id) {
         SCORE[id] += 1 
-        this.updateScore()
+        updateScore()
     }
-
-    resetScore() {
+    function resetScore() {
         SCORE[0] = 0
         SCORE[1] = 0
-        this.updateScore()
-        this.reset()
+        updateScore()
+        reset()
     }
-
-    checkIFXWin(check) {
+    function checkIFXWin(check) {
         let result = []
         for(var i = 0; i < 3; i++) {
             if(check[i][0] == 'X' && check[i][1] == 'X' && check[i][2] == 'X') {
@@ -135,7 +128,7 @@ export default class Game {
         return result
     }
 
-    checkIFOWin(check) {
+    function checkIFOWin(check) {
         let result = []
         for(var i = 0; i < 3; i++) {
             if(check[i][0] == 'O' && check[i][1] == 'O' && check[i][2] == 'O') {
@@ -162,63 +155,102 @@ export default class Game {
         return result
     }
 
-    drawLineWinner(xy) {
-        this.context.beginPath()
-        this.context.lineWidth = 4
-        this.context.strokeStyle = '#fd2000'
-        if (xy[0].x === 0 && xy[0].y === 0) {
-            if (xy[1].x === 0 && xy[1].y === 1) {
+    function drawLineWinner(position) {
+        context.beginPath()
+        context.lineWidth = 4
+        context.strokeStyle = '#fd2000'
+        if (position[0].x === 0 && position[0].y === 0) {
+            if (position[1].x === 0 && position[1].y === 1) {
                 // p/ baixo
-                this.context.moveTo(98, 5)
-                this.context.lineTo(98, 595)
-            } else if (xy[1].x === 1 && xy[1].y === 0){
+                context.moveTo(98, 5)
+                context.lineTo(98, 595)
+            } else if (position[1].x === 1 && position[1].y === 0){
                 // p/ direita
-                this.context.moveTo(5, 98)
-                this.context.lineTo(595, 98)
-            } else if (xy[1].x === 1 && xy[1].y === 1) {
+                context.moveTo(5, 98)
+                context.lineTo(595, 98)
+            } else if (position[1].x === 1 && position[1].y === 1) {
                 // diagonal principal
-                this.context.moveTo(5, 5)
-                this.context.lineTo(595, 595)
+                context.moveTo(5, 5)
+                context.lineTo(595, 595)
             }
-        }else if (xy[0].x === 2 && xy[0].y === 0) {
-            if (xy[1].x === 2 && xy[1].y === 1) {
+        } else if (position[0].x === 2 && position[0].y === 0) {
+            if (position[1].x === 2 && position[1].y === 1) {
                 // p/ baixo
-                this.context.moveTo(498, 5)
-                this.context.lineTo(498, 595)
-            } else if (xy[1].x === 1 && xy[1].y === 1){
+                context.moveTo(498, 5)
+                context.lineTo(498, 595)
+            } else if (position[1].x === 1 && position[1].y === 1){
                 // p/ diagonal segundaria
-                this.context.moveTo(595, 5)
-                this.context.lineTo(5, 595)
+                context.moveTo(595, 5)
+                context.lineTo(5, 595)
             }
-        }else if (xy[0].x === 1 && xy[0].y === 0) {
-            if (xy[1].x === 1 && xy[1].y === 1) {
-                this.context.moveTo(298, 5)
-                this.context.lineTo(298, 595)
+        } else if (position[0].x === 1 && position[0].y === 0) {
+            if (position[1].x === 1 && position[1].y === 1) {
+                context.moveTo(298, 5)
+                context.lineTo(298, 595)
             }
-        } else if (xy[0].x === 0 && xy[0].y === 1) {
-            this.context.moveTo(5, 298)
-            this.context.lineTo(595, 298)
-        } else if (xy[0].x === 0 && xy[0].y === 2) {
-            this.context.moveTo(5, 498)
-            this.context.lineTo(595, 498)
+        } else if (position[0].x === 0 && position[0].y === 1) {
+            context.moveTo(5, 298)
+            context.lineTo(595, 298)
+        } else if (position[0].x === 0 && position[0].y === 2) {
+            context.moveTo(5, 498)
+            context.lineTo(595, 498)
         }
-        this.context.stroke()
-        this.context.closePath()
+        context.stroke()
+        context.closePath()
     }
 
-    testWin() {
+    function testWin() {
         const teste = []
-        teste.push(this.checkIFXWin(this.board))
-        teste.push(this.checkIFOWin(this.board))
+        teste.push(checkIFXWin(board))
+        teste.push(checkIFOWin(board))
         if(teste[0].length > 1) {
-            this.drawLineWinner(teste[0])
-            this.registerScore(0)
-            this.end = true
+            drawLineWinner(teste[0])
+            registerScore(0)
+            end = true
         }
         if(teste[1].length > 1) {
-            this.drawLineWinner(teste[1])
-            this.registerScore(1)
-            this.end = true
+            drawLineWinner(teste[1])
+            registerScore(1)
+            end = true
         }
+    }
+    function handleClick(event) {
+        if(TURNS.length > 8) {
+            end = true
+        }
+        if(event.offsetX <= 200) {
+            if(event.offsetY <= 200) {
+                (TURNS.length % 2) ? addXonBoard(0, 0) : addOonBoard(0, 0)
+            } else if (event.offsetY <= 400) {
+                (TURNS.length % 2) ? addXonBoard(0, 1) : addOonBoard(0, 1)
+            } else if (event.offsetY <= 600) {
+                (TURNS.length % 2) ? addXonBoard(0, 2) : addOonBoard(0, 2)
+            }
+        } else if (event.offsetX <= 400) {
+            if(event.offsetY <= 200) {
+                (TURNS.length % 2) ? addXonBoard(1, 0) : addOonBoard(1, 0)
+            } else if (event.offsetY <= 400) {
+                (TURNS.length % 2) ? addXonBoard(1, 1) : addOonBoard(1, 1)
+            } else if (event.offsetY <= 600) {
+                (TURNS.length % 2) ? addXonBoard(1, 2) : addOonBoard(1, 2)
+            }
+        } else if (event.offsetX <= 600) {
+            if(event.offsetY <= 200) {
+                (TURNS.length % 2) ? addXonBoard(2, 0) : addOonBoard(2, 0)
+            } else if (event.offsetY <= 400) {
+                (TURNS.length % 2) ? addXonBoard(2, 1) : addOonBoard(2, 1)
+            } else if (event.offsetY <= 600) {
+                (TURNS.length % 2) ? addXonBoard(2, 2) : addOonBoard(2, 2)
+            }
+        }
+        testWin()
+    }
+
+
+    return {
+        init,
+        handleClick,
+        resetScore,
+        reset,
     }
 }

@@ -17,7 +17,6 @@ export default function constants() {
     const context = canvas.getContext('2d')
     const buttonNewGame = document.querySelector('#newGame')
     const buttonResetScore = document.querySelector('#resetScore')
-    const end = false
     return {
         size,
         X,
@@ -27,7 +26,6 @@ export default function constants() {
         SCORE,
         canvas,
         context,
-        end,
         buttonNewGame,
         buttonResetScore
     }

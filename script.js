@@ -1,5 +1,5 @@
-import constants from "./constants"
-import game from "./game"
+import constants from "./constants.js"
+import game from "./game.js"
 
 const {
     handleClick,
@@ -12,6 +12,6 @@ const {
     buttonResetScore
 } = constants()
 
-buttonNewGame.querySelector('#newGame').addEventListener('click', () => reset())
+buttonNewGame.addEventListener('click', () => reset())
 buttonResetScore.addEventListener('click', () => resetScore())
 canvas.addEventListener('click', (event) => handleClick(event))

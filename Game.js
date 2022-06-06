@@ -9,11 +9,11 @@ export default function game() {
         TURNS,
         SCORE,
         canvas,
-        context,
-        end
+        context
     } = constants()
-
-    const board = generateGameBoard(BOARD)
+    let end = false
+    let board = generateGameBoard(BOARD)
+    
     canvas.width = size.width
     canvas.height = size.height
     drawBoard(context)
@@ -85,7 +85,7 @@ export default function game() {
     }
     function reset() {
         board = generateGameBoard(BOARD)
-        drawDesk(context)
+        drawBoard(context)
         TURNS.splice(0, TURNS.length)
     }
     function updateScore() {
@@ -127,7 +127,6 @@ export default function game() {
         }
         return result
     }
-
     function checkIFOWin(check) {
         let result = []
         for(var i = 0; i < 3; i++) {
@@ -154,7 +153,6 @@ export default function game() {
         }
         return result
     }
-
     function drawLineWinner(position) {
         context.beginPath()
         context.lineWidth = 4
@@ -198,7 +196,6 @@ export default function game() {
         context.stroke()
         context.closePath()
     }
-
     function testWin() {
         const teste = []
         teste.push(checkIFXWin(board))
@@ -207,11 +204,13 @@ export default function game() {
             drawLineWinner(teste[0])
             registerScore(0)
             end = true
+            console.log(`first ${end}`)
         }
         if(teste[1].length > 1) {
             drawLineWinner(teste[1])
             registerScore(1)
             end = true
+            console.log(`second ${end}`)
         }
     }
     function handleClick(event) {
@@ -248,7 +247,6 @@ export default function game() {
 
 
     return {
-        init,
         handleClick,
         resetScore,
         reset,

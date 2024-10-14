@@ -1,11 +1,11 @@
 import constants from "./constants.js"
-import game from "./game.js"
+import baseGame from "./baseGame.js"
 
 const {
     handleClick,
     reset,
     resetScore
-} = game()
+} = baseGame()
 const {
     canvas,
     buttonNewGame,

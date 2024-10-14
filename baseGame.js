@@ -1,6 +1,6 @@
 import constants from './constants.js'
 
-export default function game() {
+export default function baseGame() {
     const {
         size,
         X,
